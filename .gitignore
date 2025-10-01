@@ -15,14 +15,3 @@ env/
 build/
 dist/
 *.egg-info/
-*.pth
-*.h5
-*.ckpt
-*.csv
-*.tsv
-*.xlsx
-*.zip
-*.tar.gz
-*.log
-*.out
-
