@@ -1,0 +1,121 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torchvision
+from torchvision import datasets, transforms
+from torch.utils.data import DataLoader
+
+# Check if CUDA is available
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Using device:", device)
+
+# Define transforms
+transform = transforms.Compose([
+    transforms.Grayscale(num_output_channels=1),
+    transforms.Resize((400, 400)),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.5], std=[0.5])  # Assuming images are in the range [0, 1]
+])
+
+# Load datasets
+train_dataset = datasets.ImageFolder("train", transform=transform)
+test_dataset = datasets.ImageFolder("test", transform=transform)
+
+# Split train dataset into train and validation
+train_size = int(0.8 * len(train_dataset))
+val_size = len(train_dataset) - train_size
+train_dataset, val_dataset = torch.utils.data.random_split(train_dataset, [train_size, val_size])
+
+# Define data loaders
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+
+# Define the model
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=1)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
+        self.conv3 = nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(64 * 100 * 100, 64)
+        self.fc2 = nn.Linear(64, 4)
+        self.relu = nn.ReLU()
+        self.softmax = nn.Softmax(dim=1)
+        
+    def forward(self, x):
+        x = self.pool(self.relu(self.conv1(x)))
+        x = self.pool(self.relu(self.conv2(x)))
+        x = self.pool(self.relu(self.conv3(x)))
+        x = x.view(-1, 64 * 100 * 100)
+        x = self.relu(self.fc1(x))
+        x = self.softmax(self.fc2(x))
+        return x
+
+# Instantiate the model
+model = CNN().to(device)
+
+# Define loss function and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters())
+
+# Training the model
+def train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=20):
+    for epoch in range(num_epochs):
+        model.train()
+        running_loss = 0.0
+        for inputs, labels in train_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+            optimizer.zero_grad()
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item() * inputs.size(0)
+        
+        epoch_loss = running_loss / len(train_loader.dataset)
+        print(f"Epoch {epoch+1}/{num_epochs}, Loss: {epoch_loss:.4f}")
+
+# Train the model
+train_model(model, train_loader, val_loader, criterion, optimizer)
+
+# Evaluating the model
+def evaluate_model(model, test_loader):
+    model.eval()
+    correct = 0
+    total = 0
+    with torch.no_grad():
+        for inputs, labels in test_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+            outputs = model(inputs)
+            _, predicted = torch.max(outputs, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    
+    accuracy = 100 * correct / total
+    print(f"Accuracy on test set: {accuracy:.2f}%")
+
+# Evaluate the model on the test set
+evaluate_model(model, test_loader)
+
+# Save the model
+torch.save(model.state_dict(), "phase2.pth")
+
+# Load the model
+model = CNN().to(device)
+model.load_state_dict(torch.load("phase2.pth"))
+
+# Make predictions
+def predict_image(model, image_path):
+    image = Image.open(image_path)
+    image = transform(image).unsqueeze(0).to(device)
+    model.eval()
+    with torch.no_grad():
+        output = model(image)
+    predicted_class = torch.argmax(output).item()
+    return predicted_class
+
+# Example usage
+predicted_class = predict_image(model, "/kaggle/input/chest-xray-pneumoniacovid19tuberculosis/train/COVID19/COVID19(108).jpg")
+print("Predicted class:", predicted_class)

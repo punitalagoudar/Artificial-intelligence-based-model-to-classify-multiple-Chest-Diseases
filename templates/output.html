@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Chest Disease Classification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    body {
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color:#fff;
+      overflow-x:hidden;
+      padding:20px;
+      position:relative;
+    }
+
+    /* Animated glowing overlay */
+    body::before {
+      content:"";
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: radial-gradient(circle at top left, rgba(255,64,129,0.25), transparent 60%),
+                  radial-gradient(circle at bottom right, rgba(0,198,255,0.25), transparent 60%);
+      animation: moveBg 10s infinite alternate;
+      z-index:0;
+    }
+    @keyframes moveBg {
+      from { transform:translate(0,0);}
+      to { transform:translate(40px,40px);}
+    }
+
+    /* Title */
+    .title {
+      font-size:2.5rem;
+      font-weight:700;
+      text-align:center;
+      margin-bottom:40px;
+      line-height:1.4;
+      background: linear-gradient(90deg, #ff4081, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow:0 3px 15px rgba(0,0,0,0.7);
+      z-index:1;
+      position:relative;
+    }
+
+    /* Card container */
+    .card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+      padding:40px 35px;
+      max-width:650px;
+      width:100%;
+      text-align:center;
+      box-shadow:0px 10px 30px rgba(0,0,0,0.5);
+      z-index:1;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow:0px 20px 45px rgba(0,0,0,0.6);
+    }
+
+    /* Report text */
+    .result-text {
+      font-size:1.7rem;
+      font-weight:600;
+      color:#fff200;
+      margin:20px 0;
+      line-height:1.5;
+      text-shadow:0px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Back button */
+    .back-btn {
+      display:inline-block;
+      margin-top:25px;
+      padding:12px 28px;
+      font-size:1rem;
+      font-weight:600;
+      color:#fff;
+      background:linear-gradient(to right, #ff4081, #9c27b0);
+      border-radius:10px;
+      text-decoration:none;
+      transition: all 0.3s ease;
+      box-shadow:0px 5px 18px rgba(0,0,0,0.4);
+    }
+    .back-btn:hover {
+      background:linear-gradient(to left, #ff4081, #9c27b0);
+      transform: translateY(-4px);
+      box-shadow:0px 10px 25px rgba(0,0,0,0.6);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top:30px;
+      font-size:0.95rem;
+      color:#ddd;
+      text-align:center;
+      z-index:1;
+      position:relative;
+      text-shadow:0px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    /* Responsive */
+    @media(max-width:600px){
+      .title { font-size:2rem; }
+      .result-text { font-size:1.3rem; }
+      .card { padding:25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="title">Artificial Intelligence<br>Chest Disease Classifier</h1>
+
+  <div class="card">
+    <p class="result-text">{{Report}}</p>
+    <a href="/div2bak" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+  </div>
+
+  <p class="footer">Powered by <strong>AI Chest Disease Classification System</strong></p>
+
+</body>
+</html>

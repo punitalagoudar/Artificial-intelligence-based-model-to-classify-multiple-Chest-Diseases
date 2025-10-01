@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Patient Check-Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
+                  url("https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80")
+                  no-repeat center center/cover;
+      padding: 20px;
+      animation: fadeInBg 1.2s ease-in-out;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+      padding: 35px;
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0px 15px 30px rgba(0,0,0,0.4);
+      animation: fadeUp 0.9s ease;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .title a {
+      font-size: 14px;
+      text-decoration: none;
+      color: #ff80bf;
+      margin-left: 10px;
+    }
+    .title a:hover {
+      text-decoration: underline;
+    }
+
+    form .input-box {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .input-box span {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px 15px 12px 40px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .input-box input:focus {
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+
+    .input-box i {
+      position: absolute;
+      left: 12px;
+      top: 38px;
+      color: #ff80bf;
+      font-size: 18px;
+    }
+
+    .button {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .button input {
+      background: linear-gradient(45deg, #ed4599, #ff80bf, #ff4081);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0px 5px 15px rgba(255, 64, 129, 0.5);
+    }
+
+    .button input:hover {
+      background: linear-gradient(45deg, #ff4081, #ed4599);
+      transform: scale(1.05);
+      box-shadow: 0px 8px 20px rgba(255, 64, 129, 0.7);
+    }
+
+    @keyframes fadeUp {
+      from {opacity: 0; transform: translateY(40px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInBg {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">
+      🏥 Patient Check-Up Form 
+      (<a href="/div2bak">Back</a>)
+    </div>
+
+    <form action="newcheckup" method="post">
+      <div class="input-box">
+        <span>Full Name</span>
+        <input name="fullname" type="text" id="fullname" placeholder="Enter full name" required pattern="[a-zA-Z\s]+">
+        <i class="fas fa-user"></i>
+      </div>
+
+      <div class="input-box">
+        <span>Age</span>
+        <input name="age" type="text" id="age" placeholder="Enter age" maxlength="2" pattern="[0-9]{2}" required>
+        <i class="fas fa-birthday-cake"></i>
+      </div>
+
+      <div class="input-box">
+        <span>Gender</span>
+        <input name="gender" type="text" id="gender" placeholder="Enter Male / Female" required>
+        <i class="fas fa-venus-mars"></i>
+      </div>
+
+      <div>
+        {{report}}
+      </div>
+
+      <div class="button">
+        <input name="Submit" type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+</body>
+</html>

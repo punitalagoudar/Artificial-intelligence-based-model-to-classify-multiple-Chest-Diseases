@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Check Up List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  * {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins", sans-serif;
+  }
+
+  body {
+    min-height:100vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('https://images.unsplash.com/photo-1580281657521-958d8b32c48e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') 
+                no-repeat center center/cover;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:50px 20px;
+    color:#fff;
+  }
+
+  h1 {
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:10px;
+    text-align:center;
+    background: linear-gradient(90deg,#ff4081,#00c6ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0px 3px 12px rgba(0,0,0,0.6);
+  }
+
+  h2 {
+    font-size:24px;
+    font-weight:500;
+    margin-bottom:30px;
+    text-align:center;
+    color:#fffb;
+  }
+
+  .table-container {
+    width:90%;
+    max-width:900px;
+    background: rgba(255,255,255,0.1);
+    border-radius:15px;
+    backdrop-filter: blur(15px);
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+  }
+
+  table {
+    width:100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding:15px;
+    text-align:center;
+    color:#fff;
+    font-size:16px;
+  }
+
+  thead {
+    background: rgba(255,255,255,0.2);
+    color:#fff;
+    font-weight:600;
+  }
+
+  tbody tr {
+    transition:0.3s;
+    cursor:pointer;
+  }
+
+  tbody tr:nth-child(even){
+    background: rgba(255,255,255,0.05);
+  }
+
+  tbody tr:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.02);
+  }
+
+  a.back-btn {
+    display:inline-block;
+    margin-top:30px;
+    padding:10px 20px;
+    background: linear-gradient(135deg,#ff4081,#ff6f61);
+    color:#fff;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    box-shadow:0px 4px 15px rgba(0,0,0,0.3);
+    transition:0.3s;
+  }
+
+  a.back-btn:hover {
+    transform:scale(1.05);
+    background: linear-gradient(135deg,#ff6f61,#ff4081);
+  }
+</style>
+</head>
+<body>
+
+<h1>Artificial Intelligence-based Model</h1>
+<h2>Chest Disease Check Up List</h2>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Prediction</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data %}
+      <tr>
+        <td>{{ item[0] }}</td>
+        <td>{{ item[1] }}</td>
+        <td>{{ item[2] }}</td>
+        <td>{{ item[3] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<a href="/div2bak" class="back-btn">Back</a>
+
+</body>
+</html>
