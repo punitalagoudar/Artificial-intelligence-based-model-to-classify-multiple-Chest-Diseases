@@ -68,8 +68,15 @@ Note: Some scripts may be executable files without a `.py` extension. If require
 
 ## Screenshots
 
-<img src="assets/login_demo.png" alt="Login Demo" width="400"/>
-<img src="assets/admin_menu.png" alt="Admin Menu" width="600"/>
+<h3>Login Page</h3>
+<img src="screenshots/login.png" width="400"/>
+
+<h3>Admin Menu</h3>
+<img src="screenshots/menu.png" width="600"/>
+
+<h3>Prediction Result</h3>
+<img src="screenshots/prediction.png" width="600"/>
+
 
 ---
 
