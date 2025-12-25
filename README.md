@@ -25,18 +25,9 @@ A deep-learning-based application for automated classification of multiple chest
 
 ---
 
-## Overview
 
-This project implements an automated chest-disease classification pipeline using computer vision and deep learning (PyTorch). It includes code for data preparation, model training, evaluation, prediction, and a lightweight server interface for demonstration or integration.
 
-Key goals:
-- Provide a reproducible training and inference pipeline
-- Offer easy-to-use scripts for experimentation and deployment
-- Keep repository structure simple to facilitate extension
-
----
-
-## Repository layout
+## 📦 Project Structure
 
 ```
 .
