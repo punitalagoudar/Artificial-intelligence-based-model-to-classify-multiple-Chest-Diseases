@@ -59,6 +59,8 @@ Note: Some scripts may be executable files without a `.py` extension. If require
 
 ## Screenshots
 
+> Screenshots are for demonstration purposes. Actual predictions may vary based on input image quality.
+
 <h3>Login Page</h3>
 <img src="screenshots/login.png" width="400"/>
 
